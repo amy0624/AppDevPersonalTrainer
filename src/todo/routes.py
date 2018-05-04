@@ -8,7 +8,7 @@ from models import Model
 
 
 @app.route('/users', methods=['POST'])
-def post_users():
+def post_tasks():
     Name = request.args.get("Name")
     Height = int(request.args.get("Height"))
     Weight = int(request.args.get("Weight"))
@@ -30,9 +30,10 @@ def get_users_name():
     return jsonify(db.get_user_info_by_name(request.args.get("Name")))
 
 @app.route('/users', methods=['DELETE'])
-def delete_user():
+def delete_task():
     return jsonify(db.delete_user(request.args.get("Name")))
-    
+
 @app.route('/routines', methods=['GET'])
 def get_all_routines():
-    return jsonify(db.get_all_from_routines())
+    db.set_up_routines()
+    return jsonify(db.get_list_of_routines())
