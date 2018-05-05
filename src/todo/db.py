@@ -22,7 +22,7 @@ class DB(object):
     def __init__(self):
         self.conn = sqlite3.connect("todo.db", check_same_thread=False)
         # TODO - Create all other tables here
-        #self.set_up_routines()
+        self.set_up_routines()
 
     def set_up_routines(self):
         self.create_routines_table()
@@ -96,9 +96,19 @@ class DB(object):
             "duration3" : duration3,
             "url": url
           }
+
           list.append(dictionary)
 
+        self.delete_all()
         return list
+
+
+    def delete_all(self):
+        cursor = self.conn.cursor()
+        cursor.execute("""
+        DELETE FROM ROUTINES;
+        """)
+
 
     def add_user(self, name, height, weight, age, gender):
     # Add a task to the table.
