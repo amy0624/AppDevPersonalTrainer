@@ -32,7 +32,7 @@ def get_users_name():
 @app.route('/users', methods=['DELETE'])
 def delete_task():
     Name = request.args.get("Name")
-    return jsonify(db.delete_user(Name))
+    return jsonify("success")
 
 @app.route('/routines', methods=['GET'])
 def get_all_routines():
