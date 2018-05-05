@@ -21,6 +21,7 @@ class DB(object):
 
     def __init__(self):
         self.conn = sqlite3.connect("todo.db", check_same_thread=False)
+        self.create_user_table()
         # TODO - Create all other tables here
         #self.set_up_routines()
 

@@ -9,29 +9,30 @@ from models import Model
 
 @app.route('/users', methods=['POST'])
 def post_tasks():
-    Name = request.args.get("Name")
-    Height = int(request.args.get("Height"))
-    Weight = int(request.args.get("Weight"))
-    Age = int(request.args.get("Age"))
-    Gender = request.args.get("Gender")
-    #Fitness_Level = int(request.args.get("Fitness_Level"))
-    #Intensity = int(request.args.get("Intensity"))
+    Name = request.form["Name"]
+    Height = int(request.form["Height"])
+    Weight = int(request.form["Weight"])
+    Age = int(request.form["Age"])
+    Gender = request.form["Gender"]
 
-    user = models.User(Name, Height, Weight, Age, Gender)
+    user = { "Name": Name,
+    "Height": Height,
+    "Weight": Weight,
+    "Age": Age,
+    "Gender":Gender 
+    }
 
-    user_dict = user.to_dict()
-    db.add_user(user_dict["Name"], user_dict["Height"], user_dict["Weight"], user_dict["Age"],
-    user_dict["Gender"])
-
-    return jsonify(user_dict)
+    return jsonify(user)
 
 @app.route('/users', methods=['GET'])
 def get_users_name():
-    return jsonify(db.get_user_info_by_name(request.args.get("Name")))
+    Name = request.args.get("Name")
+    return jsonify(db.get_user_info_by_name(Name))
 
 @app.route('/users', methods=['DELETE'])
 def delete_task():
-    return jsonify(db.delete_user(request.args.get("Name")))
+    Name = request.args.get("Name")
+    return jsonify(db.delete_user(Name))
 
 @app.route('/routines', methods=['GET'])
 def get_all_routines():
