@@ -35,5 +35,4 @@ def delete_task():
 
 @app.route('/routines', methods=['GET'])
 def get_all_routines():
-    db.set_up_routines()
     return jsonify(db.get_list_of_routines())
