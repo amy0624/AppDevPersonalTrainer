@@ -22,7 +22,7 @@ class DB(object):
     def __init__(self):
         self.conn = sqlite3.connect("todo.db", check_same_thread=False)
         # TODO - Create all other tables here
-        self.set_up_routines()
+        #self.set_up_routines()
 
     def set_up_routines(self):
         self.create_routines_table()
@@ -68,7 +68,6 @@ class DB(object):
       except Exception as e: print e
 
     def get_list_of_routines(self):
-
         cursor = self.conn.execute("""
             SELECT * FROM ROUTINES;
           """)
@@ -98,16 +97,11 @@ class DB(object):
           }
 
           list.append(dictionary)
-
-        self.delete_all()
+        self.conn.execute("""
+                DROP TABLE ROUTINES;
+                """)
+        self.conn.commit()
         return list
-
-
-    def delete_all(self):
-        cursor = self.conn.cursor()
-        cursor.execute("""
-        DELETE FROM ROUTINES;
-        """)
 
 
     def add_user(self, name, height, weight, age, gender):
